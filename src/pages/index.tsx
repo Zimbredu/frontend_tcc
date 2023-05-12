@@ -4,20 +4,23 @@ import styles from '../styles/home.module.scss';
 import logoImg from '../../public/desenho4.svg';
 
 import { Input } from "../components/ui/Input";
-import { Button} from '../components/ui/Button';
+import { Button } from '../components/ui/Button';
+
+/* O import a seguir é para nevegação de página */
+import Link from "next/link";
 
 export default function Home() {
   return (
-   <>
-    <Head>
-      <title>Usuário - Faça seu login </title>
-    </Head>
-    <div className={styles.containerCenter}>
-     <Image src={logoImg} alt="Logo App"/>
+    <>
+      <Head>
+        <title>Usuário - Faça seu login </title>
+      </Head>
+      <div className={styles.containerCenter}>
+        <Image src={logoImg} alt="Logo App" />
 
-      <div className={styles.login}>
+        <div className={styles.login}>
           <form action="">
-          <Input
+            <Input
               placeholder="Digite seu email"
               type="text"
             />
@@ -29,17 +32,17 @@ export default function Home() {
 
             <Button type='submit'
               loading={false}
-              >
-                 Acessar
+            >
+              Acessar
             </Button>
-          </form>
-
-          <a className={styles.text}>Não possui uma conta? Cadastra-se</a>
-
+          </form>           
+          <Link href='/cadastro'>
+              <a className={styles.text}>Não possui uma conta? Cadastra-se</a>
+          </Link>
+        </div>
       </div>
-    </div>
 
-   </>
+    </>
 
   )
 }
