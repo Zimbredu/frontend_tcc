@@ -6,11 +6,9 @@ import logoImg from '../../public/desenho4.svg';
 import { Input } from "../components/ui/Input";
 import { Button} from '../components/ui/Button';
 
-
 export default function Home() {
   return (
    <>
-
     <Head>
       <title>Usuário - Faça seu login </title>
     </Head>
@@ -30,10 +28,14 @@ export default function Home() {
             />
 
             <Button type='submit'
-              loading={false}>
+              loading={false}
+              >
                  Acessar
             </Button>
           </form>
+
+          <a className={styles.text}>Não possui uma conta? Cadastra-se</a>
+
       </div>
     </div>
 
