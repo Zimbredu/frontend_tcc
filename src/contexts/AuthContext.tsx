@@ -1,7 +1,9 @@
 
 import { createContext, ReactNode, useState } from "react";
 
-import { destroyCookie } from "nookies";
+import { api } from '../services/apiClient'
+
+import { destroyCookie, setCookie, parseCookies } from "nookies";
 import  Router from 'next/router';
 
 type AuthContextData = {
@@ -28,9 +30,10 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData);
 
-//Inicio funcionalidade de logout.
+//Início funcionalidade de logout.
 export function signOut(){
     try{
+        //@nextauth.token é nome cookie.
         destroyCookie(undefined, '@nextauth.token');
         Router.push('/')
     }catch{
@@ -47,10 +50,38 @@ export function AuthProvider({ children }: AuthProviderProps){
      senão true. */
     const isAuthenticated = !!user;
 
+   //Início funcionalidade login. 
    async function signIn({email, password}: SignInProps){
-        console.log('DADOS PARA LOGAGR', email);
-        console.log('SENHA', password);
-    }
+        try {
+            const response = await api.post('/login',{
+                email,
+                password
+            })
+            //console.log(response.data);
+
+            const { id, name, token} = response.data;
+            setCookie(undefined, '@nextauth.token', token, {
+                maxAge: 60 * 60 * 24 * 30, //O token é válido por um mês.
+                path: '/' //Caminhos/rotas que terão acesso ao cookie.
+            })
+
+            setUser({
+                id,
+                name,
+                email,
+            })
+
+            //Passar para as próximas requisições o nosso token.
+            api.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+            //Redirecionar o user para /dashboard(página dos últimos serviços/tarefa)
+            Router.push('/dashboard');
+
+
+        } catch (erro) {
+            console.log('ERRO AO ACESSAR', erro);
+        }
+   }//Fim funcionalidade login.
 
     return(
         <AuthContext.Provider value={{user, isAuthenticated, signIn, signOut}}>
