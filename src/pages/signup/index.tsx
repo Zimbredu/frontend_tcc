@@ -3,7 +3,7 @@ import { useState, FormEvent, useContext } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from '../../styles/home.module.scss';
-import logoImg from '../../../public/desenho4.svg';
+import logoImg from '../../../public/logo_.svg';
 
 import { Input } from "../../components/ui/Input";
 import { Button } from '../../components/ui/Button';
@@ -46,8 +46,7 @@ export default function SignUp() {
 
     setLoading(false);
 
-  }
-  
+  }  
 
   return (
     <>
@@ -59,7 +58,6 @@ export default function SignUp() {
 
         <div className={styles.login}>
           <h1>Criando sua conta</h1>
-
 
           <form onSubmit={handleSignUp} >
           <Input
