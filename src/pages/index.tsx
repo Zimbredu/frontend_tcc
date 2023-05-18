@@ -15,6 +15,8 @@ import { toast } from "react-toastify";
 
 import { AuthContext } from "../contexts/AuthContext";
 
+import { canSSRGuest } from "../utils/canSSRGuest";
+
 /* O import a seguir é para nevegação de página */
 import Link from "next/link";
 
@@ -86,8 +88,15 @@ export default function Home() {
           </Link>
         </div>
       </div>
-
     </>
 
   )
 }
+
+export const getServerSideProps = canSSRGuest(async (context) => {
+
+  return{
+    props:{}
+  }
+})
+
