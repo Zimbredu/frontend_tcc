@@ -5,7 +5,7 @@ import { useContext, FormEvent, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from '../styles/home.module.scss';
-import logoImg from '../../public/desenho4.svg';
+import logoImg from '../../public/logo_.svg';
 
 
 import { Input } from "../components/ui/Input";
