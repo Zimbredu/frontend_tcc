@@ -11,10 +11,7 @@ export default function Document(){
                 <Main/>
                 <NextScript/>                
             </body>
-            <footer>
-                <h1>rodapé</h1>
-                <NextScript/>
-            </footer>
+          
         </Html>
        
     )
