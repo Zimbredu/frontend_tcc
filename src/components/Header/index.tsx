@@ -18,7 +18,7 @@ export function Header(){
                 </Link>
 
                 <nav className={styles.menuNav}>
-                    <Link href='/categoriaServico' legacyBehavior>
+                    <Link href='/category' legacyBehavior>
                        <a>Índice</a>                   
                     </Link>
 
