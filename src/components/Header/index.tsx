@@ -22,8 +22,8 @@ export function Header(){
                        <a>Índice</a>                   
                     </Link>
 
-                    <Link href='/servico' legacyBehavior>
-                       <a>Tarefa</a>                    
+                    <Link href='/tasks' legacyBehavior>
+                       <a>Tarefas</a>                    
                     </Link>
                     
                     <button onClick={signOut}>
