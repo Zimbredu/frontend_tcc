@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import Head from "next/head";
 import styles from './styles.module.scss';
 import { Header } from "../../components/Header";
@@ -8,6 +8,8 @@ import { canSSRAuth } from "../../utils/canSSRAuth";
 import { FiUpload } from 'react-icons/fi';
 
 import { setupAPIClient } from "../../services/api";
+
+import { toast } from "react-toastify";
 
 //criando uma tipagem categoryList.
 type ItemProps = {
@@ -20,6 +22,9 @@ interface CategoryProps{
 }
 
 export default function Tasks({ categoryList }: CategoryProps){
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
 
     const [avatarUrl, setAvatarUrl] = useState('');
     const [imageAvatar, setImageAvatar] = useState(null);
@@ -48,6 +53,37 @@ export default function Tasks({ categoryList }: CategoryProps){
        setCategorySelected(event.target.value);
     }
 
+    async function handleRegister(event: FormEvent) {
+        event.preventDefault();
+
+        try {
+            const data = new FormData();
+
+            if(name === '' || description === '' || imageAvatar === null){
+                toast.error('Preencha todos os campos!');
+                return;
+            }
+            data.append('name', name);
+            data.append('description', description);
+            data.append('id_Categoria', categories[categorySelected].id);
+            data.append('file', imageAvatar);
+
+            const apiClient = setupAPIClient();
+
+            await apiClient.post('/tasks', data);
+
+            toast.success('Tarefa cadastrada com sucesso!');
+
+        } catch (err) {
+            console.log(err);
+            toast.error('Erro ao cadastrar tarefa!')
+        }
+        setName('');
+        setDescription('');
+        setImageAvatar(null);
+        setAvatarUrl('');
+    }
+
     return(
         <>
             <Head>
@@ -58,7 +94,7 @@ export default function Tasks({ categoryList }: CategoryProps){
                 <main className={styles.container}>
                     <h1>Nova tarefa</h1>
 
-                    <form className={styles.form}>
+                    <form className={styles.form} onSubmit={handleRegister}>
                        
                        <label className={styles.labelAvatar}>
                             <span>
@@ -91,11 +127,15 @@ export default function Tasks({ categoryList }: CategoryProps){
                          type="text"
                          placeholder="Digite o nome da tarefa."
                          className={styles.input}
+                         value={name} 
+                         onChange={ (e) => setName(e.target.value)} 
                          />
 
                        <textarea
                          placeholder="Descreva sua tarefa"
                          className={styles.input}
+                         value={description}
+                         onChange={ (e) => setDescription(e.target.value)}
                        />
 
                        <button className={styles.buttonAdd} type="submit">
