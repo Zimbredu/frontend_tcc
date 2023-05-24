@@ -5,12 +5,27 @@ import { Header } from "../../components/Header";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-import { FiUpload } from 'react-icons/fi'
+import { FiUpload } from 'react-icons/fi';
 
-export default function Tasks(){
+import { setupAPIClient } from "../../services/api";
+
+//criando uma tipagem categoryList.
+type ItemProps = {
+    id: string;
+    name: string;
+}
+
+interface CategoryProps{
+    categoryList: ItemProps[];
+}
+
+export default function Tasks({ categoryList }: CategoryProps){
 
     const [avatarUrl, setAvatarUrl] = useState('');
     const [imageAvatar, setImageAvatar] = useState(null);
+
+    const [categories, setCategories] = useState(categoryList || []);
+    const [categorySelected, setCategorySelected] = useState(0);
 
     function handleFile(e: ChangeEvent<HTMLInputElement>){
         if(!e.target.files){
@@ -26,6 +41,11 @@ export default function Tasks(){
             setImageAvatar(image);
             setAvatarUrl(URL.createObjectURL(e.target.files[0]));
         }
+    }
+
+    //Ao selecionar uma nova categoria na lista.
+    function handleChangeCategory(event){
+       setCategorySelected(event.target.value);
     }
 
     return(
@@ -44,7 +64,6 @@ export default function Tasks(){
                             <span>
                                 <FiUpload size={30} color="#FFF"/>
                             </span>
-
                                 <input type="file" accept="image/png, image/jpe" onChange={handleFile}/>
 
                                 {avatarUrl && (
@@ -58,13 +77,14 @@ export default function Tasks(){
                                 )}
                        </label>
 
-                        <select >
-                            <option >
-                               Engenharia de software
-                            </option>
-                            <option >
-                               Desenvolvimento de software
-                            </option>
+                        <select value={categorySelected} onChange={handleChangeCategory}>
+                           {categories.map( (item, index) => {
+                                return(
+                                    <option key={item.id} value={index}>
+                                      {item.name}                                        
+                                    </option>
+                                )
+                           })}
                         </select>
                         
                        <input
@@ -92,7 +112,15 @@ export default function Tasks(){
 }
 
 export const getServerSideProps = canSSRAuth(async(context) => {
+   const apiClient = setupAPIClient(context);
+
+   const response = await apiClient.get('/category');   
+   /* console.log(response.data); */
+
+
     return{
-        props:{}
+        props:{
+            categoryList: response.data
+        }
     }
 })
