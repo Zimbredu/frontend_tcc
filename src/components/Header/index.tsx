@@ -19,7 +19,7 @@ export function Header(){
 
                 <nav className={styles.menuNav}>
                     <Link href='/category' legacyBehavior>
-                       <a>Índice</a>                   
+                       <a>Cadastrar tarefa</a>                   
                     </Link>
 
                     <Link href='/tasks' legacyBehavior>

@@ -59,7 +59,7 @@ export default function Category(){
     )
 }
 
-export const getServerSideProps = canSSRAuth(async (constext) => {
+export const getServerSideProps = canSSRAuth(async (context) => {
     return{
         props:{}
     }
