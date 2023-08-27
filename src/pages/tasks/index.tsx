@@ -65,7 +65,8 @@ export default function Tasks({ categoryList }: CategoryProps){
             }
             data.append('name', name);
             data.append('description', description);
-            data.append('id_Categoria', categories[categorySelected].id);
+            /* data.append('id_Categoria', categories[categorySelected].id); */
+            data.append('catergoria_tarefa_id', categories[categorySelected].id);
             data.append('file', imageAvatar);
 
             const apiClient = setupAPIClient();

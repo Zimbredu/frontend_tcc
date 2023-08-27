@@ -47,10 +47,12 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
 
                     <h2>Detalhes da tarefa</h2>
                     <span className={styles.task}>
-                     Tarefa: {requisicaotarefas[0].requisicaotarefas.task}   
+                      {/* Tarefa: {requisicaotarefas[0].requisicaotarefas.task} */}  
+                      Tarefa: {requisicaotarefas[0].requisicaotarefas.task}
+                    
                      {/* Tarefa: {}  */}                     
                     </span>
-
+                    
                     {requisicaotarefas.map( item => (
                         <section key={item.id} className={styles.containerItem}>
                             <span>{item.amount} - <strong>{item.tarefa.name}</strong></span>
