@@ -26,13 +26,13 @@ export default function Tasks({ categoryList }: CategoryProps){
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
-    const [avatarUrl, setAvatarUrl] = useState('');
-    const [imageAvatar, setImageAvatar] = useState(null);
+    //const [avatarUrl, setAvatarUrl] = useState('');
+   //const [imageAvatar, setImageAvatar] = useState(null);
 
     const [categories, setCategories] = useState(categoryList || []);
     const [categorySelected, setCategorySelected] = useState(0);
 
-    function handleFile(e: ChangeEvent<HTMLInputElement>){
+   /*  function handleFile(e: ChangeEvent<HTMLInputElement>){
         if(!e.target.files){
             return;
         } 
@@ -43,10 +43,10 @@ export default function Tasks({ categoryList }: CategoryProps){
         }
         if(image.type === 'image/jpeg' || image.type === 'image/png'){
 
-            setImageAvatar(image);
-            setAvatarUrl(URL.createObjectURL(e.target.files[0]));
+            //setImageAvatar(image);
+            //setAvatarUrl(URL.createObjectURL(e.target.files[0]));
         }
-    }
+    } */
 
     //Ao selecionar uma nova categoria na lista.
     function handleChangeCategory(event){
@@ -59,18 +59,18 @@ export default function Tasks({ categoryList }: CategoryProps){
         try {
             const data = new FormData();
 
-            if(name === '' || description === '' || imageAvatar === null){
+            if(name === '' || description === ''){
                 toast.error('Preencha todos os campos!');
                 return;
             }
-            data.append('name', name);
-            data.append('description', description);
-            data.append('id_Categoria', categories[categorySelected].id);
-            data.append('file', imageAvatar);
 
             const apiClient = setupAPIClient();
 
-            await apiClient.post('/tasks', data);
+            await apiClient.post('/tasks', {
+                name: name,
+                description: description,
+                categoria_tarefa_id:categories[categorySelected].id
+            });
 
             toast.success('Tarefa cadastrada com sucesso!');
 
@@ -80,8 +80,6 @@ export default function Tasks({ categoryList }: CategoryProps){
         }
         setName('');
         setDescription('');
-        setImageAvatar(null);
-        setAvatarUrl('');
     }
 
     return(
@@ -95,7 +93,7 @@ export default function Tasks({ categoryList }: CategoryProps){
                     <h1>Nova tarefa</h1>
 
                     <form className={styles.form} onSubmit={handleRegister}>
-                       
+                       {/* 
                        <label className={styles.labelAvatar}>
                             <span>
                                 <FiUpload size={30} color="#FFF"/>
@@ -111,7 +109,7 @@ export default function Tasks({ categoryList }: CategoryProps){
                                     height={250}
                                   />
                                 )}
-                       </label>
+                       </label> */}
 
                         <select value={categorySelected} onChange={handleChangeCategory}>
                            {categories.map( (item, index) => {
