@@ -5,7 +5,7 @@ import { useContext, FormEvent, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from '../styles/home.module.scss';
-import logoImg from '../../public/logo_.svg';
+import logoProjeto from '../../public/logoTaskify.png';
 
 
 import { Input } from "../components/ui/Input";
@@ -53,22 +53,22 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Usuário - Faça seu login </title>
+        <title>Login</title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo App" />
+        <Image src={logoProjeto} alt="Logo App" className={styles.logo} />
 
         <div className={styles.login}>
           <form onSubmit={handleLogin} >
             <Input
-              placeholder="Digite seu email"
+              placeholder="Digite seu email..."
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
             <Input
-              placeholder="Digite sua senha"
+              placeholder="Digite sua senha..."
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

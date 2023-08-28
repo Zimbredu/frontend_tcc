@@ -5,6 +5,7 @@ import styles from './styles.module.scss';
 
 import { Header } from "../../components/Header";
 import { FiRefreshCcw } from "react-icons/fi";
+import { IoIosAdd } from "react-icons/io";
 
 import { setupAPIClient } from '../../services/api';
 
@@ -94,7 +95,7 @@ export default function Dashboard( {  orders }: HomeProps ){
     return(
        <>
         <Head>
-         <title>Painel - Optmize Tasks</title>
+         <title>Painel - Taskify</title>
          </Head>
 
          <div>
@@ -102,9 +103,16 @@ export default function Dashboard( {  orders }: HomeProps ){
             
             <main className={styles.container}>
                 <div className={styles.containerHeader}>
-                    <h1>Últimas tarefas</h1>
+                    <h1>Task's Dashboard</h1>
                     <button onClick={handleRefreshOrders}>
                        <FiRefreshCcw size={25} color="#3fffa3"/>
+                    </button>
+                </div>
+
+                {/* Botão para adicionar tarefa */}
+                <div className={styles.buttonCreateTask}>
+                    <button>
+                        <IoIosAdd size={45}/>
                     </button>
                 </div>
 
