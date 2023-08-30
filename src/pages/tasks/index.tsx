@@ -63,6 +63,11 @@ export default function Tasks({ categoryList }: CategoryProps){
                 toast.error('Preencha todos os campos!');
                 return;
             }
+            //data.append('name', name);
+            //data.append('description', description);
+            /* data.append('id_Categoria', categories[categorySelected].id); */
+           // data.append('catergoria_tarefa_id', categories[categorySelected].id);
+           // data.append('file', imageAvatar);
 
             const apiClient = setupAPIClient();
 
