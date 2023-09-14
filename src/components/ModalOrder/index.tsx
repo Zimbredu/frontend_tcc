@@ -6,6 +6,8 @@ import { FiX } from 'react-icons/fi';
 
 import { OrderItemProps } from '../../pages/dashboard';
 
+import Link from "next/link";
+
 interface ModalOderProps{
     isOpen: boolean;
     onRequestClose: () => void;
@@ -59,11 +61,17 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
                             <span className={styles.description}>{item.tarefa.description}</span>
                         </section>
                     ))} 
-                                                            
-                    <button className={styles.buttonOrder} onClick={ () => 
-                         handleFinishOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
-                        Concluir tarefa  
-                    </button>
+                    <div className={styles.containerButton}>                                        
+                        <button className={styles.buttonOrder} onClick={ () => 
+                            handleFinishOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
+                            Concluir tarefa  
+                        </button>
+
+                        <button  className={styles.buttonLink}>
+                             <a href="/chat" className={styles.textLink}> Chat </a>                            
+                        </button>
+
+                    </div>    
                     
                 </div>   
 

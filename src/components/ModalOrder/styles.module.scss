@@ -41,6 +41,17 @@
     color: var(--red-900);
 }
 
+.buttonLink {
+    margin-top: 1.5rem;
+    background-color: rgba(0,0,0, 40%);
+    border: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    color: var(--red-900);
+    margin-left: 1rem;
+
+}
+
 @media screen and (max-width: 700px){
     .container{
         width: 430px;
@@ -52,3 +63,4 @@
         width: 300px;
     }
 }
+
