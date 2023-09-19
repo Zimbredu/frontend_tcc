@@ -18,7 +18,7 @@ type OrderProps = {
     task: string | number;
     status: boolean;
     draft: boolean;
-    name: string;
+    name: string | null;
 }
 
 interface HomeProps{
@@ -162,8 +162,8 @@ export default function Dashboard( {  orders }: HomeProps ){
 
     const response = await apiClient.get('/orders');
     //Com console a seguir é possível visualizar as requisicões no bash/cmd.
-    /* console.log(response.data); */
-
+    //console.log(response.data); 
+ 
     return {
         props:{
             orders: response.data
