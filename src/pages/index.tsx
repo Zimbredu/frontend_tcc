@@ -59,6 +59,8 @@ export default function Home() {
         <Image src={logoProjeto} alt="Logo App" className={styles.logo} />
 
         <div className={styles.login}>
+          <h1>Entrar</h1>
+
           <form onSubmit={handleLogin} >
             <Input
               placeholder="Digite seu email..."

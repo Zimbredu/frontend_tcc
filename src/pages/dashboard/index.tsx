@@ -110,11 +110,11 @@ export default function Dashboard( {  orders }: HomeProps ){
                 </div>
 
                 {/* Botão para adicionar tarefa */}
-                <div className={styles.buttonCreateTask}>
+                {/* <div className={styles.buttonCreateTask}>
                     <button>
                         <IoIosAdd size={45}/>
                     </button>
-                </div>
+                </div> */}
 
                 <article className={styles.listOrders}>
                     
@@ -125,12 +125,16 @@ export default function Dashboard( {  orders }: HomeProps ){
                     )}
 
                     {orderList.map( item => (
-
                         <section key={item.id} className={styles.orderItem}>
-                            <button onClick={ () => handleOpenModalView(item.id)}>
-                                <div className={styles.tag}></div>
-                                <span>Tarefa {item.task}</span>                           
-                            </button>
+                            <div className={styles.tag}></div>
+                            <div className={styles.card}>
+                                <button onClick={ () => handleOpenModalView(item.id)}>
+
+                                    <span className={styles.task}>Tarefa {item.task}</span>
+
+                                    <span className={styles.tasktime}>Task Time</span>
+                                </button>
+                            </div>
                         </section>      
                     ))}  
 

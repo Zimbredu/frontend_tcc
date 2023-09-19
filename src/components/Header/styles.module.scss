@@ -22,9 +22,16 @@
 .menuNav{
     display: flex;
     align-items: center;
+    
+    .linkCadTarefa{
+        border: 0.4rem solid transparent;
+        background-color: var(--green);
+        border-radius: 1rem;
+        font-weight: bold;
+    }
 
     a{
-        color: var(--white);
+        color: var(--dark-700);
         padding: 0 0.5rem;
         display: inline-block;
         position: relative;
@@ -35,8 +42,11 @@
         }
 
         &:hover{
-            color: var(--red-900);
+            color: var(--blue);
         }
+    
+    
+
     }
 
     button{

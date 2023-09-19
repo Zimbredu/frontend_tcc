@@ -14,16 +14,16 @@ export function Header(){
         <header className={styles.headerContainer}>
            <div className={styles.headerContent}>
                 <Link href='/dashboard'>
-                    <img src="/logoTaskify.png" width={180} height={35} alt="Logo" />
+                    <img src="/logoTaskify.png" width={180} height={35} alt="Taskify" />
                 </Link>
 
                 <nav className={styles.menuNav}>
-                    <Link href='/category' legacyBehavior>
-                       <a>Cadastrar tarefa</a>                   
-                    </Link>
+                    {/* <Link href='/category' legacyBehavior>
+                       <a>Rota categoria</a>                   
+                    </Link> */}
 
                     <Link href='/tasks' legacyBehavior>
-                       <a>Tarefas</a>                    
+                       <a className={styles.linkCadTarefa}>Cadastrar tarefa</a>                    
                     </Link>
                     
                     <button onClick={signOut}>
