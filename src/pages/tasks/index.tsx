@@ -70,7 +70,7 @@ export default function Tasks({ categoryList }: CategoryProps){
 
             const apiClient = setupAPIClient();
 
-            await apiClient.post('/tasks', data);
+            await apiClient.post('/task', data);
 
             toast.success('Tarefa cadastrada com sucesso!');
 

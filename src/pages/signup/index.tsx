@@ -2,8 +2,8 @@ import { useState, FormEvent, useContext } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
-import styles from '../../styles/home.module.scss';
-import logoImg from '../../../public/logo_.svg';
+import styles from '../signup/styles.module.scss';
+import logoProjeto from '../../../public/logoTaskify.png';
 
 import { Input } from "../../components/ui/Input";
 import { Button } from '../../components/ui/Button';
@@ -54,9 +54,9 @@ export default function SignUp() {
         <title> Faça seu cadastro agora </title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo App" />
+        <Image src={logoProjeto} alt="Logo App" className={styles.logo} />
 
-        <div className={styles.login}>
+        <div className={styles.signup}>
           <h1>Criando sua conta</h1>
 
           <form onSubmit={handleSignUp} >
@@ -84,12 +84,12 @@ export default function SignUp() {
             <Button 
             type='submit'
             loading={loading}>
-              cadastrar
+              Cadastrar
             </Button>
           </form>   
 
           {/* Precisei adicionar o atributo lagacyBehavior
-          para a taga <a> funcionar dentro da tag <Link> */}        
+          para a tag <a> funcionar dentro da tag <Link> */}        
           <Link href='/' legacyBehavior>
               <a className={styles.text}>Já possui uma conta? Faça o login!</a>
           </Link>

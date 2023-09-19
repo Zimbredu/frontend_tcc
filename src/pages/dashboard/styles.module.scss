@@ -17,18 +17,22 @@
 .containerHeader{/* .containerHeader */
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 
     button{
         background: transparent;
         border: 0;
         margin-left: 1rem;
+        // top, ?, bottom, ?
+        padding: 1rem 0 0 0;
     }  
 }
 
 .buttonCreateTask{
 
     button{
-        background: var(--green-900);
+        background: var(--green);
         color: var(--dark-700);
         border: none;
         border-radius: 0.3rem;
@@ -41,35 +45,57 @@
 
 .listOrders{/* .listOrders */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap; // Quebra de linha da flexbox
+    /* vertical | horizontal */
     margin: 1rem 0;
 }
 
 .orderItem{/* .orderItem */
    display: flex;
-   flex-direction: row;     
+   flex-direction: row;
    background-color: var(--dark-900);
-   margin-bottom: 1rem;
-   align-items: center; 
+   width: 10rem;
+   height: 10rem;
+//    margin-left: 3rem;
+   margin-bottom: 3rem;
    border-radius: 0.3rem;
 
    button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border: 0;
     background: transparent;
     font-size: 1.2rem;
     color: var(--white);
     height: 60px;
-    align-items: center;
     display: flex;
    }
+
+   .task{
+    margin-top: 6.1rem;
+    margin-bottom: 2rem;
+   }
+
+   .card{
+    display: flex;
+    flex-direction: row;
+   }
+
+   .tasktime{
+    margin-top: 4rem;
+   }
+
 }
 
 .tag{/* .tag */
     width: 9px;
-    background-color: var(--green-900);
-    height: 60px;
+    background-color: var(--blue);
+    height: 160px;
     border-radius: 0.3rem 0 0 0.3rem;
-    margin-right: 1rem;
+    margin-right: 2rem;
 }
 
 .emptyList{

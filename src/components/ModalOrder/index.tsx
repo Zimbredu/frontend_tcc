@@ -33,7 +33,7 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
         isOpen={isOpen}
         onRequestClose={onRequestClose}
         style={customStyles}
-         >
+        >
             <button
             type="button"
             onClick={onRequestClose}
