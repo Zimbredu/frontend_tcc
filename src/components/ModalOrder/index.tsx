@@ -6,6 +6,8 @@ import { FiX } from 'react-icons/fi';
 
 import { OrderItemProps } from '../../pages/dashboard';
 
+import Link from "next/link";
+
 interface ModalOderProps{
     isOpen: boolean;
     onRequestClose: () => void;
@@ -47,21 +49,29 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
 
                     <h2>Detalhes da tarefa</h2>
                     <span className={styles.task}>
-                     Tarefa: {requisicaotarefas[0].requisicaotarefas.task}   
+                      {/* Tarefa: {requisicaotarefas[0].requisicaotarefas.task} */}  
+                      Tarefa: {requisicaotarefas[0].requisicaotarefas.task}
+                    
                      {/* Tarefa: {}  */}                     
                     </span>
-
+                    
                     {requisicaotarefas.map( item => (
                         <section key={item.id} className={styles.containerItem}>
                             <span>{item.amount} - <strong>{item.tarefa.name}</strong></span>
                             <span className={styles.description}>{item.tarefa.description}</span>
                         </section>
                     ))} 
-                                                            
-                    <button className={styles.buttonOrder} onClick={ () => 
-                         handleFinishOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
-                        Concluir tarefa  
-                    </button>
+                    <div className={styles.containerButton}>                                        
+                        <button className={styles.buttonOrder} onClick={ () => 
+                            handleFinishOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
+                            Concluir tarefa  
+                        </button>
+
+                        <button  className={styles.buttonLink}>
+                             <a href="/chat" className={styles.textLink}> Chat </a>                            
+                        </button>
+
+                    </div>    
                     
                 </div>   
 
