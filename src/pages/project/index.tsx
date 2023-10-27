@@ -5,32 +5,27 @@ import { Header } from "../../components/Header";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-import { FiUpload } from 'react-icons/fi';
-
 import { setupAPIClient } from "../../services/api";
 
 import { toast } from "react-toastify";
 
 //criando uma tipagem categoryList.
-type ItemProps = {
+type ProjectProps = {
     id: string;
-    name: string;
-    prioridade: number;
+    task: string | number;
+    name: string | null;
 }
 
-interface CategoryProps{
-    prioridadeList: ItemProps[];
-}
 
-export default function Tasks({ prioridadeList }: CategoryProps){
+export default function OpenProject({ task, name }: ProjectProps){
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    const [projectTask, setProjectTask] = useState('');
+    const [projectName, setProjectName] = useState('');
 
     //const [avatarUrl, setAvatarUrl] = useState('');
    //const [imageAvatar, setImageAvatar] = useState(null);
 
-    const [prioridades, setPrioridades] = useState(prioridadeList || []);
+    // const [prioridades, setPrioridades] = useState(prioridadeList || []);
     const [prioridadeSelected, setPrioridadeSelected] = useState(0);
 
    /*  function handleFile(e: ChangeEvent<HTMLInputElement>){
@@ -58,9 +53,9 @@ export default function Tasks({ prioridadeList }: CategoryProps){
         event.preventDefault();
 
         try {
-            const data = new FormData();
+            // const data = new FormData();
 
-            if(name === '' || description === ''){
+            if(projectTask === '' || projectName === ''){
                 toast.error('Preencha todos os campos!');
                 return;
             }
@@ -72,31 +67,30 @@ export default function Tasks({ prioridadeList }: CategoryProps){
 
             const apiClient = setupAPIClient();
 
-            await apiClient.post('/tasks', {
-                name: name,
-                description: description,
-                prioridade_id:prioridades[prioridadeSelected].id
+            await apiClient.post('/order', {
+                task: projectTask,
+                name: projectName,
             });
 
-            toast.success('Tarefa cadastrada com sucesso!');
+            toast.success('Projeto aberto com sucesso!');
 
         } catch (err) {
             console.log(err);
-            toast.error('Erro ao cadastrar tarefa!')
+            toast.error('Erro ao abrir o projeto!')
         }
-        setName('');
-        setDescription('');
+        setProjectTask('');
+        setProjectName('');
     }
 
     return(
         <>
             <Head>
-                <title>Nova tarefa - Optimize Tasks</title>
+                <title>Novo projeto - Taskify</title>
             </Head>
             <div>
                 <Header/>
                 <main className={styles.container}>
-                    <h1>Nova tarefa</h1>
+                    <h1>Novo projeto</h1>
 
                     <form className={styles.form} onSubmit={handleRegister}>
                        {/* 
@@ -117,7 +111,7 @@ export default function Tasks({ prioridadeList }: CategoryProps){
                                 )}
                        </label> */}
 
-                        <select value={prioridadeSelected} onChange={handleChangePrioridade}>
+                        {/* <select value={prioridadeSelected} onChange={handleChangePrioridade}>
                            {prioridades.map( (item, index) => {
                                 return(
                                     <option key={item.id} value={index}>
@@ -125,25 +119,26 @@ export default function Tasks({ prioridadeList }: CategoryProps){
                                     </option>
                                 )
                            })}
-                        </select>
+                        </select> */}
                         
                        <input
-                         type="text"
-                         placeholder="Digite o nome da tarefa."
-                         className={styles.input}
-                         value={name} 
-                         onChange={ (e) => setName(e.target.value)} 
-                         />
-
-                       <textarea
-                         placeholder="Descreva sua tarefa"
-                         className={styles.input}
-                         value={description}
-                         onChange={ (e) => setDescription(e.target.value)}
+                        type="number"
+                        placeholder="Digite o numero do projeto"
+                        className={styles.input}
+                        value={projectTask}
+                        onChange={ (e) => setProjectTask(e.target.value)}
                        />
 
+                       <input
+                         type="text"
+                         placeholder="Digite o nome do projeto"
+                         className={styles.input}
+                         value={projectName} 
+                         onChange={ (e) => setProjectName(e.target.value)} 
+                         />
+
                        <button className={styles.buttonAdd} type="submit">
-                         Cadastrar
+                         Abrir
                        </button>
 
                       
@@ -156,15 +151,15 @@ export default function Tasks({ prioridadeList }: CategoryProps){
 }
 
 export const getServerSideProps = canSSRAuth(async(context) => {
-   const apiClient = setupAPIClient(context);
+//    const apiClient = setupAPIClient(context);
 
-   const response = await apiClient.get('/category');   
-   /* console.log(response.data); */
+//    const response = await apiClient.post('/order');   
+//    console.log(response.data);
 
 
     return{
         props:{
-            prioridadeList: response.data
+            // ProjectProps: response.data
         }
     }
 })

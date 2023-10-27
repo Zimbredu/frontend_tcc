@@ -34,8 +34,7 @@ export type OrderItemProps = {
     tarefa:{//product
         id: string;
         name: string;
-        description: string;
-        banner: string
+        prioridade: number
     }
     requisicaotarefas:{//order
         id: string;
@@ -45,11 +44,12 @@ export type OrderItemProps = {
     }     
 } 
 
-export default function Dashboard( {  orders }: HomeProps ){
+export default function Dashboard( { orders }: HomeProps ){
 
     const [orderList, setOrderList] = useState(orders || []);
 
     const [modalItem, setModalItem] = useState<OrderItemProps[]>();
+    const [priorityFlag, setPriorityFlag] = useState();
     const [modalVisible, setModalVisible] = useState(false);
 
     function handleCloseModal(){
@@ -70,9 +70,27 @@ export default function Dashboard( {  orders }: HomeProps ){
         setModalItem(response.data);
         setModalVisible(true);
     }
-      async function handleFinishItem(id: string){
-          const apiClient = setupAPIClient();
-          await apiClient.put('/order/finish', {
+
+   async function handleGetPriority(prioridade: number){
+
+        const apiClient = setupAPIClient();
+
+        const response = await apiClient.get('/category/service', {
+            params:{
+               prioridade: prioridade,
+            }
+        });
+
+        if(response.data.prioridade == 0){
+            // setPriorityFlag("./../../asset")
+        }
+
+        setPriorityFlag(response.data.prioridade);
+    }
+
+    async function handleFinishItem(id: string){
+        const apiClient = setupAPIClient();
+        await apiClient.put('/order/finish', {
           requisicao_tarefa_id: id,
         }) 
         
@@ -92,6 +110,11 @@ export default function Dashboard( {  orders }: HomeProps ){
      }
 
      Modal.setAppElement('#__next');
+
+
+
+
+
     return(
        <>
         <Head>
@@ -131,6 +154,17 @@ export default function Dashboard( {  orders }: HomeProps ){
                                 <button onClick={ () => handleOpenModalView(item.id)}>
 
                                     <span className={styles.task}>Tarefa {item.task}</span>
+
+                                    {/* <span onChange={handleGetPriority}></span>
+                                    {priorityFlag == 1 && (
+                                        <p>Mostrou</p>
+                                    )} */}
+
+
+                                    {/* {priorityFlag.(pri => (
+                                        <span className={styles.task}>Tarefa {pri.tarefa.prioridade}</span>
+                                 
+                                    ))} */}
 
                                     <span className={styles.tasktime}>Task Time</span>
                                 </button>
