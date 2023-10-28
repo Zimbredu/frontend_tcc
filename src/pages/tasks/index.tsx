@@ -1,15 +1,13 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import Head from "next/head";
 import styles from './styles.module.scss';
 import { Header } from "../../components/Header";
 
-import { canSSRAuth } from "../../utils/canSSRAuth";
-
-import { FiUpload } from 'react-icons/fi';
-
 import { setupAPIClient } from "../../services/api";
 
 import { toast } from "react-toastify";
+
+import { canSSRAuth } from "../../utils/canSSRAuth";
 
 //criando uma tipagem categoryList.
 type ItemProps = {
@@ -26,29 +24,11 @@ export default function Tasks({ categoryList }: CategoryProps){
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
-    //const [avatarUrl, setAvatarUrl] = useState('');
-   //const [imageAvatar, setImageAvatar] = useState(null);
-
     const [categories, setCategories] = useState(categoryList || []);
     const [categorySelected, setCategorySelected] = useState(0);
 
-   /*  function handleFile(e: ChangeEvent<HTMLInputElement>){
-        if(!e.target.files){
-            return;
-        } 
-        const image = e.target.files[0];
-
-        if(!image){
-            return;
-        }
-        if(image.type === 'image/jpeg' || image.type === 'image/png'){
-
-            //setImageAvatar(image);
-            //setAvatarUrl(URL.createObjectURL(e.target.files[0]));
-        }
-    } */
-
-    //Ao selecionar uma nova categoria na lista.
+   
+    //Função p/ selecionar um categoria/prioridade na lista (select).
     function handleChangeCategory(event){
        setCategorySelected(event.target.value);
     }
@@ -57,19 +37,12 @@ export default function Tasks({ categoryList }: CategoryProps){
         event.preventDefault();
 
         try {
-            const data = new FormData();
 
             if(name === '' || description === ''){
                 toast.error('Preencha todos os campos!');
                 return;
             }
-            //data.append('name', name);
-            //data.append('description', description);
-            /* data.append('id_Categoria', categories[categorySelected].id); */
-           // data.append('catergoria_tarefa_id', categories[categorySelected].id);
-           // data.append('file', imageAvatar);
-
-            const apiClient = setupAPIClient();
+                     const apiClient = setupAPIClient();
 
             await apiClient.post('/tasks', {
                 name: name,
@@ -98,24 +71,7 @@ export default function Tasks({ categoryList }: CategoryProps){
                     <h1>Nova tarefa</h1>
 
                     <form className={styles.form} onSubmit={handleRegister}>
-                       {/* 
-                       <label className={styles.labelAvatar}>
-                            <span>
-                                <FiUpload size={30} color="#FFF"/>
-                            </span>
-                                <input type="file" accept="image/png, image/jpe" onChange={handleFile}/>
-
-                                {avatarUrl && (
-                                    <img 
-                                    className={styles.preview}
-                                    src={avatarUrl}
-                                    alt="Foto da tarefa"
-                                    width={250}
-                                    height={250}
-                                  />
-                                )}
-                       </label> */}
-
+                       
                         <select value={categorySelected} onChange={handleChangeCategory}>
                            {categories.map( (item, index) => {
                                 return(
@@ -157,7 +113,8 @@ export default function Tasks({ categoryList }: CategoryProps){
 export const getServerSideProps = canSSRAuth(async(context) => {
    const apiClient = setupAPIClient(context);
 
-   const response = await apiClient.get('/category');   
+   
+    const response = await apiClient.get('/category');  
    /* console.log(response.data); */
 
 
