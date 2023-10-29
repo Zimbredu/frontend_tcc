@@ -109,12 +109,7 @@ export default function Dashboard( {  orders }: HomeProps ){
                     </button>
                 </div>
 
-                {/* Botão para adicionar tarefa */}
-                {/* <div className={styles.buttonCreateTask}>
-                    <button>
-                        <IoIosAdd size={45}/>
-                    </button>
-                </div> */}
+             
 
                 <article className={styles.listOrders}>
                     
