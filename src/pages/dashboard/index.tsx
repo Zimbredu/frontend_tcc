@@ -5,7 +5,6 @@ import styles from './styles.module.scss';
 
 import { Header } from "../../components/Header";
 import { FiRefreshCcw } from "react-icons/fi";
-import { IoIosAdd } from "react-icons/io";
 
 import { setupAPIClient } from '../../services/api';
 

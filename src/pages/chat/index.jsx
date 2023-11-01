@@ -1,12 +1,21 @@
 import React, { useState } from "react";
+import { useContext } from 'react';
+import Link from 'next/link';
+import { FiLogOut } from 'react-icons/fi';
 //import reactLogo from './assets/react.svg';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import {MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator} from '@chatscope/chat-ui-kit-react';
 //import { canSSRAuth } from "../../utils/canSSRAuth";
+import styles from './styles.module.scss';
+import { IoMdArrowRoundBack } from "react-icons/io";
+import Head from 'next/head';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const API_KEY = "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";
 
 export default function Chat() {
+    const{ signOut } = useContext(AuthContext);
+
     const [typing, setTyping] = useState(false);
     const [messages, setMessages] = useState([
         {
@@ -88,23 +97,62 @@ export default function Chat() {
 
 
     return (
-        <div>
-            <div style={{ position: "relative", height: "570px", width: "800px"}}>
-                <MainContainer>
-                    <ChatContainer>
+        <div className={styles.container}>
+
+            <Head>
+                <title>ChatGPT - Taskify</title>
+            </Head>
+            
+            {/* Inicio Header */}
+            <header className={styles.headerContainer}>
+                <div className={styles.headerContent}>
+                    <Link href='/dashboard'>
+                        <img src="/logoTaskify.png" width={180} height={35} alt="Taskify" />
+                    </Link>
+
+                    <nav className={styles.menuNav}>
+                        <Link href='/tasks' legacyBehavior>
+                            <a className={styles.linkCadTarefa}>Cadastrar tarefa</a>                    
+                        </Link>
+                        <button onClick={signOut}>
+                            <FiLogOut color='#FFF' size={24}/>
+                        </button>
+                    </nav>
+                </div>
+            </header>
+            {/* Fim Header */}
+
+            <main className={styles.main}>
+
+                <div className={styles.title}>
+                    <Link href='/dashboard'>
+                        <button>
+                            <IoMdArrowRoundBack className={styles.returnIcon}/><span>Voltar</span>
+                        </button>
+                    </Link>
+
+                    <h1>AI Assistant</h1>
+                </div>
+
+                <MainContainer className={styles.mainContainer}>
+                    <ChatContainer className={styles.chatContainer}>
                         <MessageList
-                        scrollBehavior='smooth'
-                         typingIndicator={ typing ? <TypingIndicator content="ChatGPT está digitando"/> : null}
+                            scrollBehavior='smooth'
+                            typingIndicator={ typing ? <TypingIndicator content="ChatGPT está digitando"/> : null}
+                            className={styles.messageList}
                         >
                             {messages.map((message, i) => {
                                 return <Message key={i} model={message}/>
                             })}
                         </MessageList>
-                        <MessageInput placeholder='Type message here' onSend={handleSend}/>
+                        
+                        <MessageInput placeholder='Type message here' onSend={handleSend} className={styles.messageInput}/>
                     </ChatContainer>
-                </MainContainer> 
+                </MainContainer>
 
-            </div>
+                
+
+            </main>
         </div>
     );
     //}
