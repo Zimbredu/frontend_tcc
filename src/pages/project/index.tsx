@@ -11,30 +11,12 @@ import { toast } from "react-toastify";
 
 import Link from "next/link";
 
-type OrderProps = {
-    task: number;
-    name: string;
-}
 
-export default function OpenProject(/*{ task, name }: OrderProps*/){
+
+export default function OpenProject() {
 
     const [pTask, setTask] = useState(0);
     const [pName, setName] = useState('');
-
-    //const [avatarUrl, setAvatarUrl] = useState('');
-   //const [imageAvatar, setImageAvatar] = useState(null);
-
-    // const [prioridades, setPrioridades] = useState(prioridadeList || []);
-    const [prioridadeSelected, setPrioridadeSelected] = useState(0);
-
-
-    // function handleChangeToInt(event){
-    //     let strToInt = 0
-
-    //     strToInt = parseInt(event.target.value);
-    //     setTask(event.target.value);
-    //  }
-
 
     const handleInputChangeToNumber = (e) => {
         const input = e.target.value;
@@ -43,47 +25,26 @@ export default function OpenProject(/*{ task, name }: OrderProps*/){
         }
     };
 
-   /*  function handleFile(e: ChangeEvent<HTMLInputElement>){
-        if(!e.target.files){
-            return;
-        } 
-        const image = e.target.files[0];
-
-        if(!image){
-            return;
-        }
-        if(image.type === 'image/jpeg' || image.type === 'image/png'){
-
-            //setImageAvatar(image);
-            //setAvatarUrl(URL.createObjectURL(e.target.files[0]));
-        }
-    } */
-
-    //Ao selecionar uma nova categoria na lista.
-    // function handleChangePrioridade(event){
-    //    setPrioridadeSelected(event.target.value);
-    // }
-
     async function handleRegister(event: FormEvent) {
         event.preventDefault();
 
-        alert(`You entered with: ${pTask} | ${pName}`)
-        console.log(typeof(pTask));
+        // alert(`You entered with: ${pTask} | ${pName}`)
+        // console.log(typeof(pTask));
 
         try {
-            if(pTask === 0 /*|| name === ''*/){
+            if (pTask === 0 || pName === '') {
                 toast.error('Preencha todos os campos!');
                 return;
-            }else{
+            } else {
 
-            const apiClient = setupAPIClient();
-            await apiClient.post('/order', {
-                task: pTask,
-                name: pName,
-            });
+                const apiClient = setupAPIClient();
+                await apiClient.post('/order', {
+                    task: pTask,
+                    name: pName,
+                    draft: false
+                });
 
-
-            toast.success('Projeto aberto com sucesso!');
+                toast.success('Projeto aberto com sucesso!');
             }
 
         } catch (err) {
@@ -94,7 +55,7 @@ export default function OpenProject(/*{ task, name }: OrderProps*/){
         setName('');
     }
 
-    return(
+    return (
         <>
             <Head>
                 <title>Novo projeto - Taskify</title>
@@ -109,9 +70,9 @@ export default function OpenProject(/*{ task, name }: OrderProps*/){
                         </Link>
 
                         <nav className={stylesHeader.menuNav}>
-                        <Link href='/' legacyBehavior>
-                            <a className={styles.text}>Voltar</a>
-                        </Link>
+                            <Link href='/' legacyBehavior>
+                                <a className={styles.text}>Voltar</a>
+                            </Link>
                         </nav>
                     </div>
                 </header>
@@ -121,59 +82,30 @@ export default function OpenProject(/*{ task, name }: OrderProps*/){
                     <h1>Novo projeto</h1>
 
                     <form className={styles.form} onSubmit={handleRegister}>
-                       {/* 
-                       <label className={styles.labelAvatar}>
-                            <span>
-                                <FiUpload size={30} color="#FFF"/>
-                            </span>
-                                <input type="file" accept="image/png, image/jpe" onChange={handleFile}/>
+                        <input
+                            type="number"
+                            placeholder="Digite o numero do projeto"
+                            className={styles.input}
+                            value={pTask}
+                            onChange={handleInputChangeToNumber}
+                        />
 
-                                {avatarUrl && (
-                                    <img 
-                                    className={styles.preview}
-                                    src={avatarUrl}
-                                    alt="Foto da tarefa"
-                                    width={250}
-                                    height={250}
-                                  />
-                                )}
-                       </label> */}
+                        <input
+                            type="text"
+                            placeholder="Digite o nome do projeto"
+                            className={styles.input}
+                            value={pName}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <div className={styles.buttons}>
+                            <button className={styles.buttonAdd} type="submit">
+                                Abrir
+                            </button>
 
-                        {/* <select value={prioridadeSelected} onChange={handleChangePrioridade}>
-                           {prioridades.map( (item, index) => {
-                                return(
-                                    <option key={item.id} value={index}>
-                                      {item.prioridade}                                        
-                                    </option>
-                                )
-                           })}
-                        </select> */}
-                        
-                       <input
-                        type="number"
-                        placeholder="Digite o numero do projeto"
-                        className={styles.input}
-                        value={pTask}
-                        // onChange={ (e) => setTask(e.target.value)}
-                        onChange={handleInputChangeToNumber}
-                       />
-
-                       <input
-                         type="text"
-                         placeholder="Digite o nome do projeto"
-                         className={styles.input}
-                         value={pName} 
-                         onChange={ (e) => setName(e.target.value)} 
-                         />
-
-                       <button className={styles.buttonAdd} type="submit">
-                         Abrir
-                       </button>
-                       
-                        <Link href='../tasks' legacyBehavior>
-                            <a className={styles.text}>Adicionar tarefas</a>
-                        </Link>
-                         
+                            <Link href='../tasks' legacyBehavior>
+                                <a className={styles.buttonNext}>Adicionar tarefas</a>
+                            </Link>
+                        </div>
                     </form>
                 </main>
             </div>
@@ -181,15 +113,13 @@ export default function OpenProject(/*{ task, name }: OrderProps*/){
     )
 }
 
-export const getServerSideProps = canSSRAuth(async(context) => {
-//    const apiClient = setupAPIClient(context);
+export const getServerSideProps = canSSRAuth(async (context) => {
+    //    const apiClient = setupAPIClient(context);
+    //    const response = await apiClient.post('/order');   
+    //    console.log(response.data);
 
-//    const response = await apiClient.post('/order');   
-//    console.log(response.data);
-
-
-    return{
-        props:{
+    return {
+        props: {
             // ProjectProps: response.data
         }
     }
