@@ -32,7 +32,7 @@ export type OrderItemProps = {
     tarefa: {//product
         id: string;
         name: string;
-        description: number
+        description: string
     }
     requisicaotarefas: {//order
         id: string;
