@@ -20,8 +20,7 @@ type OrderProps = {
     name: string | null;
 }
 
-interface HomeProps{
-    
+interface HomeProps {
     orders: OrderProps[];
 }
 
@@ -30,139 +29,139 @@ export type OrderItemProps = {
     amount: number;
     requisicao_tarefa_id: string;
     tarefa_id: string;
-    tarefa:{//product
+    tarefa: {//product
         id: string;
         name: string;
-        description: string;
-        banner: string
+        description: number
     }
-    requisicaotarefas:{//order
+    requisicaotarefas: {//order
         id: string;
         task: string | number;
         status: boolean;
         name: string;
-    }     
-} 
+    }
+}
 
-export default function Dashboard( {  orders }: HomeProps ){
+export default function Dashboard({ orders }: HomeProps) {
 
     const [orderList, setOrderList] = useState(orders || []);
 
     const [modalItem, setModalItem] = useState<OrderItemProps[]>();
     const [modalVisible, setModalVisible] = useState(false);
 
-    function handleCloseModal(){
+    function handleCloseModal() {
         setModalVisible(false);
     }
 
-   async function handleOpenModalView(id: string){
+    async function handleOpenModalView(id: string) {
 
         const apiClient = setupAPIClient();
 
         const response = await apiClient.get('/order/detail', {
-            params:{
-                /* order_id: id, */
-               /* id_RequisicaoServico: id, */
-               requisicao_tarefa_id: id,
+            params: {
+                requisicao_tarefa_id: id,
             }
         });
         setModalItem(response.data);
         setModalVisible(true);
     }
-      async function handleFinishItem(id: string){
-          const apiClient = setupAPIClient();
-          await apiClient.put('/order/finish', {
-          requisicao_tarefa_id: id,
-        }) 
-        
+
+    async function handleFinishItem(id: string) {
+        const apiClient = setupAPIClient();
+        await apiClient.put('/order/finish', {
+            requisicao_tarefa_id: id,
+        })
+
         //Buscar todas as tarefas.
         const response = await apiClient.get('/orders');
         //Listar os últimos pedidos atualizados.
         setOrderList(response.data);
         //Fechar o modal.
         setModalVisible(false);
-     } 
-     //Atualizar lista com botão (FiRefreshCcw buscar os últimos pedidos). 
-     async function handleRefreshOrders(){
+    }
+    //Atualizar lista com botão (FiRefreshCcw buscar os últimos pedidos). 
+    async function handleRefreshOrders() {
         const apiClient = setupAPIClient();
 
         const response = await apiClient.get('/orders');
         setOrderList(response.data);
-     }
+    }
 
-     Modal.setAppElement('#__next');
-    return(
-       <>
-        <Head>
-         <title>Painel - Taskify</title>
-         </Head>
+    Modal.setAppElement('#__next');
 
-         <div>
-            <Header/>
-            
-            <main className={styles.container}>
-                <div className={styles.containerHeader}>
-                    <h1>Task's Dashboard</h1>
-                    <button onClick={handleRefreshOrders}>
-                       <FiRefreshCcw size={25} color="#3fffa3"/>
-                    </button>
-                </div>
 
-             
 
-                <article className={styles.listOrders}>
-                    
-                    {orderList.length == 0 && (
-                        <span className={styles.emptyList}>
-                            Lista de tarefas/atividades vazia...
-                        </span>
-                    )}
 
-                    {orderList.map( item => (
-                        <section key={item.id} className={styles.orderItem}>
-                            <div className={styles.tag}></div>
-                            <div className={styles.card}>
-                                <button onClick={ () => handleOpenModalView(item.id)}>
 
-                                    <span className={styles.task}>Tarefa {item.task}</span>
+    return (
+        <>
+            <Head>
+                <title>Dashboard - Taskify</title>
+            </Head>
 
-                                    <span className={styles.tasktime}>Task Time</span>
-                                </button>
-                            </div>
-                        </section>      
-                    ))}  
+            <div>
+                <Header />
 
-                </article>
+                <main className={styles.container}>
+                    <div className={styles.containerHeader}>
+                        <h1>Projects Dashboard</h1>
+                        <button onClick={handleRefreshOrders}>
+                            <FiRefreshCcw size={25} color="#3fffa3" />
+                        </button>
+                    </div>
 
-            </main>            
 
-             {  modalVisible  && (
-                <ModalOrder
-                    isOpen={modalVisible}
-                    onRequestClose={handleCloseModal}
-                    requisicaotarefas={modalItem}
-                    handleFinishOrder={ handleFinishItem }
-                />
-            )} 
 
-         </div>
-       </>
+                    <article className={styles.listOrders}>
+
+                        {orderList.length == 0 && (
+                            <span className={styles.emptyList}>
+                                Lista de tarefas/atividades vazia...
+                            </span>
+                        )}
+
+                        {orderList.map(item => (
+                            <section key={item.id} className={styles.orderItem}>
+                                <div className={styles.tag}></div>
+                                <div className={styles.card}>
+                                    <button onClick={() => handleOpenModalView(item.id)}>
+
+                                        <span className={styles.project}>Projeto {item.task}</span>
+
+                                        <span className={styles.details}>Detalhes</span>
+                                    </button>
+                                </div>
+                            </section>
+                        ))}
+
+                    </article>
+
+                </main>
+
+                {modalVisible && (
+                    <ModalOrder
+                        isOpen={modalVisible}
+                        onRequestClose={handleCloseModal}
+                        requisicaotarefas={modalItem}
+                        handleFinishOrder={handleFinishItem}
+                    />
+                )}
+
+            </div>
+        </>
     )
 }
 
-  export  const getServerSideProps = canSSRAuth(async (context) => {
+export const getServerSideProps = canSSRAuth(async (context) => {
     const apiClient = setupAPIClient(context);
-    
 
     const response = await apiClient.get('/orders');
     //Com console a seguir é possível visualizar as requisicões no bash/cmd.
     //console.log(response.data); 
- 
+
     return {
-        props:{
+        props: {
             orders: response.data
         }
-    } 
-
-    
+    }
 })

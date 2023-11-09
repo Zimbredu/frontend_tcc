@@ -23,7 +23,7 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
             top: '50%',
             bottom: 'auto',
             left: '50%',
-            rigth: 'auto',
+            right: 'auto',
             padding: '30px',
             transform: 'translate(-50%, -50%)',
             backgroundColor: '#1D1D2E'
@@ -57,7 +57,7 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
                     )}
 
                     {requisicaotarefas.length > 0 && (
-                        <span className={styles.task}>
+                        <span className={styles.project}>
                             {/* Tarefa: {requisicaotarefas[0].requisicaotarefas.task} */}
                             Projeto: {requisicaotarefas[0].requisicaotarefas.task}
                             {/* Tarefa: {}  */}
