@@ -1,66 +1,86 @@
 
-
-.task{
-    font-size: 1.4rem;
-    color: var(--red-900);
-}
-
-.container{
-    width: 620px;
+.container {
+    // width: 620px;
     background-color: var(--dark--700);
     color: var(--white);
 }
 
-.container h2{
+.container h2 {
     margin: 1rem 0;
 }
 
-.containerItem{
+.containerHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerItem {
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
-
-    strong{
+    margin-top: 1.8rem;
+    
+    strong {
         color: var(--green-900);
     }
 }
 
-.description{
+.description {
     margin-top: 0.5rem;
     /* se chegar a descrição no final
     do modal quebre para a linha de baixo */
-    word-break: break-all;
+    // word-break: break-all;
+    word-break: keep-all;
 }
 
-.buttonOrder{
+.containerButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttonOrder {
     margin-top: 1.5rem;
-    background-color: rgba(0,0,0, 40%);
+    background-color: rgba(0, 0, 0, 40%);
     border: 0;
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
-    color: var(--red-900);
+    color: var(--green);
 }
 
 .buttonLink {
     margin-top: 1.5rem;
-    background-color: rgba(0,0,0, 40%);
+    background-color: rgba(0, 0, 0, 40%);
     border: 0;
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
-    color: var(--red-900);
+    color: var(--green);
     margin-left: 1rem;
-
+    
 }
 
-@media screen and (max-width: 700px){
-    .container{
+.emptyList{
+    font-size: 1.2rem;
+    color: var(--gray-100);
+    margin: 1rem 0;
+}
+
+.project {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--green);
+}
+
+@media screen and (max-width: 700px) {
+    .container {
         width: 430px;
     }
 }
 
-@media screen and (max-width: 550px){
-    .container{
+@media screen and (max-width: 550px) {
+    .container {
         width: 300px;
     }
 }
-
