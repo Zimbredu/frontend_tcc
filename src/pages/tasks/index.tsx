@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
+import Link from "next/link";
+
 //criando uma tipagem categoryList.
 type ItemProps = {
     id: string;
@@ -42,7 +44,8 @@ export default function Tasks({ categoryList }: CategoryProps){
                 toast.error('Preencha todos os campos!');
                 return;
             }
-                     const apiClient = setupAPIClient();
+            
+            const apiClient = setupAPIClient();
 
             await apiClient.post('/tasks', {
                 name: name,
@@ -63,7 +66,7 @@ export default function Tasks({ categoryList }: CategoryProps){
     return(
         <>
             <Head>
-                <title>Nova tarefa - Optimize Tasks</title>
+                <title>Nova tarefa - Taskify</title>
             </Head>
             <div>
                 <Header/>
@@ -97,12 +100,16 @@ export default function Tasks({ categoryList }: CategoryProps){
                          onChange={ (e) => setDescription(e.target.value)}
                        />
 
+                        <div className={styles.buttons}>
                        <button className={styles.buttonAdd} type="submit">
                          Cadastrar
                        </button>
 
-                      
-                         
+                       <Link href='../addtaskproject' legacyBehavior>
+                            <a className={styles.buttonNext}>Adicionar tarefas em um projeto</a>
+                        </Link>
+                        </div>
+
                     </form>
                 </main>
             </div>
@@ -115,7 +122,7 @@ export const getServerSideProps = canSSRAuth(async(context) => {
 
    
     const response = await apiClient.get('/category');  
-   /* console.log(response.data); */
+    // console.log(response.data);
 
 
     return{
