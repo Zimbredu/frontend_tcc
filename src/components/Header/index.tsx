@@ -23,7 +23,15 @@ export function Header(){
                     </Link> */}
 
                     <Link href='/project' legacyBehavior>
-                       <a className={styles.linkCadTarefa}>Abrir projeto</a>                    
+                       <a className={styles.linkCadProj}>Abrir projeto</a>                    
+                    </Link>
+
+                    <Link href='/tasks' legacyBehavior>
+                       <a className={styles.linkCadTarefa}>Cadastrar Tarefa</a>                    
+                    </Link>
+
+                    <Link href='/addtaskproject' legacyBehavior>
+                       <a className={styles.linkTaskProject}>Adicionar Tarefa ao Projeto</a>                    
                     </Link>
                     
                     <button onClick={signOut}>
