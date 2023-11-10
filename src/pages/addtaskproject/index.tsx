@@ -128,7 +128,7 @@ export default function Tasks({ /*categoryList*/ projectsList, tasksList }: List
 
                         <div className={styles.buttons}>
                             <button className={styles.buttonAdd} type="submit">
-                                <IoMdAddCircle className={styles.addIcon}/><span>Adicionar</span>
+                                <IoMdAddCircle size={22} className={styles.addIcon}/><span>Adicionar</span>
                             </button>
 
                             <Link href='/dashboard' legacyBehavior>
