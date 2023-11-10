@@ -2,6 +2,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import Head from "next/head";
 import styles from './styles.module.scss';
 import stylesHeader from '../../components/Header/styles.module.scss'
+import { Header } from "../../components/HeaderProject";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
@@ -61,22 +62,7 @@ export default function OpenProject() {
                 <title>Novo projeto - Taskify</title>
             </Head>
             <div>
-
-                {/* Header */}
-                <header className={stylesHeader.headerContainer}>
-                    <div className={stylesHeader.headerContent}>
-                        <Link href='/dashboard'>
-                            <img src="/logoTaskify.png" width={180} height={35} alt="Taskify" />
-                        </Link>
-
-                        <nav className={stylesHeader.menuNav}>
-                            <Link href='/' legacyBehavior>
-                                <a className={styles.text}>Voltar</a>
-                            </Link>
-                        </nav>
-                    </div>
-                </header>
-                {/* Fim Header */}
+                <Header/>
 
                 <main className={styles.container}>
                     <h1>Novo projeto</h1>
@@ -103,7 +89,7 @@ export default function OpenProject() {
                             </button>
 
                             <Link href='../tasks' legacyBehavior>
-                                <a className={styles.buttonNext}>Adicionar tarefas</a>
+                                <a className={styles.buttonNext}>Cadastrar tarefas</a>
                             </Link>
                         </div>
                     </form>
