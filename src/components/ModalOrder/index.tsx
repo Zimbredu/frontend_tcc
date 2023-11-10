@@ -57,11 +57,14 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
                     )}
 
                     {requisicaotarefas.length > 0 && (
-                        <span className={styles.project}>
-                            {/* Tarefa: {requisicaotarefas[0].requisicaotarefas.task} */}
-                            Projeto: {requisicaotarefas[0].requisicaotarefas.task}
-                            {/* Tarefa: {}  */}
-                        </span>
+                        <>
+                            <span className={styles.project}>
+                                Projeto: {requisicaotarefas[0].requisicaotarefas.task}
+                            </span>
+                            <span className={styles.projectName}>
+                                {requisicaotarefas[0].requisicaotarefas.name}
+                            </span>
+                        </>
                     )}
 
                 </div>
@@ -76,7 +79,7 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
                 <div className={styles.containerButtons}>
                     <button className={styles.buttonOrder} onClick={() =>
                         handleFinishOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
-                        Concluir tarefa
+                        Concluir projeto
                     </button>
 
                     <button className={styles.buttonLink}>
