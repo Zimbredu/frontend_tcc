@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import Head from "next/head";
 import styles from './styles.module.scss';
-import { Header } from "../../components/Header";
+import { Header } from "../../components/HeaderTask";
 import { GrFormNext } from 'react-icons/gr'
 
 import { setupAPIClient } from "../../services/api";
