@@ -61,8 +61,8 @@ export default function Chat() {
         let horas = 84000;
         const systemMessage = {
             role: "system",
-             //content: "Extraia o tempo no formato { tempo: 00:00 } da seguinte frase" 
-               content: "prazo, minutos, horas, condições, exemplos de, explique o que é"
+             content: "Extraia o tempo no formato { tempo: 00:00 } da seguinte frase" 
+               //content: "prazo, minutos, horas, condições, exemplos de, explique o que é"
         }
 
         const apiRequestBody = {
