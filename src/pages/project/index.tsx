@@ -1,17 +1,18 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import ReactDOM from 'react-dom';
+
+import Router from 'next/router';
 import Head from "next/head";
 import styles from './styles.module.scss';
 import stylesHeader from '../../components/Header/styles.module.scss'
 import { Header } from "../../components/HeaderProject";
-import { GrFormNext } from 'react-icons/gr'
+import { FaCheck } from "react-icons/fa";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
 import { setupAPIClient } from "../../services/api";
 
 import { toast } from "react-toastify";
-
-import Link from "next/link";
 
 
 
@@ -53,8 +54,10 @@ export default function OpenProject() {
             console.log(err);
             toast.error('Erro ao abrir o projeto!')
         }
+
         setTask(0);
         setName('');
+        Router.push('/tasks');
     }
 
     return (
@@ -87,16 +90,16 @@ export default function OpenProject() {
                             onChange={(e) => setName(e.target.value)}
                         />
                         <div className={styles.buttons}>
-                            <button className={styles.buttonAdd} type="submit">
-                                Abrir
+                            <button className={styles.buttonOpen} type="submit">
+                                <FaCheck size={20} className={styles.checkIcon} /> <span>Abrir</span>
                             </button>
 
-                            <Link href='../tasks' legacyBehavior>
+                            {/* <Link href='../tasks' legacyBehavior>
                                 <button className={styles.buttonNext}>
                                     <span>Cadastrar tarefas</span>
                                     <GrFormNext size={40} className={styles.iconNext} />
                                 </button>
-                            </Link>
+                            </Link> */}
                         </div>
                     </form>
                 </main>

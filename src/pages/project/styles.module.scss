@@ -38,48 +38,57 @@
 .buttons{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    align-items: center; 
+    justify-content: center;
 }
 
-.buttonAdd{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 0;
-    background-color: var(--green);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--dark-700);
-    padding: 0 1rem;
-    // margin-right: 12.1rem;
-}
-
-.buttonNext{
+.buttonOpen{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
-    border-radius: 0.3rem;
+    justify-content: center;
+    
     height: 40px;
-    // border: 0;
+    width: 23%;
+    border-radius: 0.3rem;
+    border: 0;
     background-color: var(--green);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: var(--dark-700);
-
     padding: 0 1rem;
-    // padding-left: 10rem;
-    margin-left: 21rem;
 
-    span{
-        padding-right: 0.1rem;
-    }
-
-    .iconNext{
+    .checkIcon{
         background-color: transparent;
-        color: var(--dark-700);
-        margin: 0;
-        border: 0;
-        padding: 0;
+        margin-right: 1rem;
     }
 }
+
+// .buttonNext{
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+
+//     border-radius: 0.3rem;
+//     height: 40px;
+//     // border: 0;
+//     background-color: var(--green);
+//     font-size: 1.2rem;
+//     font-weight: bold;
+//     color: var(--dark-700);
+
+//     padding: 0 1rem;
+//     // padding-left: 10rem;
+//     // margin-left: 21rem;
+
+//     span{
+//         padding-right: 0.1rem;
+//     }
+
+//     .iconNext{
+//         background-color: transparent;
+//         color: var(--dark-700);
+//         margin: 0;
+//         border: 0;
+//         padding: 0;
+//     }
+// }
