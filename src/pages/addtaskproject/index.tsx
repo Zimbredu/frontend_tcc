@@ -1,23 +1,17 @@
 import { useState, FormEvent } from "react";
 import Head from "next/head";
 import styles from './styles.module.scss';
-import { Header } from "../../components/Header";
+import { Header } from "../../components/HeaderAddTaskProject";
+import Link from 'next/link';
 
 import { setupAPIClient } from "../../services/api";
 
 import { toast } from "react-toastify";
+import { AiFillHome } from "react-icons/ai";
+import { IoMdAddCircle } from "react-icons/io";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-
-// type ItemProps = {
-//     id: string;
-//     name: string;
-// }
-
-// interface CategoryProps{
-//     categoryList: ItemProps[];
-// }
 
 type ProjectProps = {
     id: string;
@@ -28,14 +22,15 @@ type ProjectProps = {
 type TaskProps = {
     id: string;
     name: string;
+    description: string;
 }
 
-interface ListProps{
+interface ListProps {
     projectsList: ProjectProps[];
     tasksList: TaskProps[];
 }
 
-export default function Tasks({ /*categoryList*/ projectsList, tasksList }: ListProps){
+export default function Tasks({ /*categoryList*/ projectsList, tasksList }: ListProps) {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -47,16 +42,16 @@ export default function Tasks({ /*categoryList*/ projectsList, tasksList }: List
     const [projectSelected, setProjectSelected] = useState(0);
     const [taskSelected, setTaskSelected] = useState(0);
 
-   
+
     //Função p/ selecionar um categoria/prioridade na lista (select).
     // function handleChangeCategory(event){
     //    setCategorySelected(event.target.value);
     // }
-    function handleChangeProject(event){
-       setProjectSelected(event.target.value);
+    function handleChangeProject(event) {
+        setProjectSelected(event.target.value);
     }
-    function handleChangeTask(event){
-       setTaskSelected(event.target.value);
+    function handleChangeTask(event) {
+        setTaskSelected(event.target.value);
     }
 
     async function handleRegister(event: FormEvent) {
@@ -68,15 +63,12 @@ export default function Tasks({ /*categoryList*/ projectsList, tasksList }: List
             //     toast.error('Preencha todos os campos!');
             //     return;
             // }
-            
+
             const apiClient = setupAPIClient();
 
             await apiClient.post('/order/add', {
-                requisicao_tarefa_id:projects[projectSelected].id,
-                tarefa_id:tasks[taskSelected].id
-                // name: name,
-                // description: description,
-                // categoria_tarefa_id:categories[categorySelected].id
+                requisicao_tarefa_id: projects[projectSelected].id,
+                tarefa_id: tasks[taskSelected].id
             });
 
             toast.success('Tarefa inserida no projeto com sucesso!');
@@ -89,61 +81,54 @@ export default function Tasks({ /*categoryList*/ projectsList, tasksList }: List
         setDescription('');
     }
 
-    return(
+    return (
         <>
             <Head>
                 <title>Inserir tarefa - Taskify</title>
             </Head>
             <div>
-                <Header/>
+                <Header />
                 <main className={styles.container}>
                     <h1>Adicione tarefas ao projeto</h1>
 
                     <form className={styles.form} onSubmit={handleRegister}>
-                       
-                       {/* Select order */}
+
+                        {/* Select order */}
+                        <h3>Selecione o projeto:</h3>
                         <select value={projectSelected} onChange={handleChangeProject}>
-                           {projects.map( (item, index) => {
-                                return(
+                            {projects.map((item, index) => {
+                                return (
                                     <option key={item.id} value={index}>
-                                      {item.name}                                        
+                                        {item.name}
                                     </option>
                                 )
-                           })}
+                            })}
                         </select>
-                        
+
                         {/* Select tarefa */}
+                        <h3>Selecione a tarefa:</h3>
                         <select value={taskSelected} onChange={handleChangeTask}>
-                           {tasks.map( (item, index) => {
-                                return(
+                            {tasks.map((item, index) => {
+                                return (
                                     <option key={item.id} value={index}>
-                                      {item.name}
+                                        {item.name}
                                     </option>
                                 )
-                           })}
+                            })}
                         </select>
-                        
-                       {/* <input
-                         type="text"
-                         placeholder="Digite o nome da tarefa."
-                         className={styles.input}
-                         value={name} 
-                         onChange={ (e) => setName(e.target.value)} 
-                         />
 
-                       <textarea
-                         placeholder="Descreva sua tarefa"
-                         className={styles.input}
-                         value={description}
-                         onChange={ (e) => setDescription(e.target.value)}
-                       /> */}
+                        <div className={styles.buttons}>
+                            <button className={styles.buttonAdd} type="submit">
+                                <IoMdAddCircle size={22} className={styles.addIcon}/><span>Adicionar</span>
+                            </button>
 
-                       <button className={styles.buttonAdd} type="submit">
-                         Cadastrar
-                       </button>
+                            <Link href='/dashboard' legacyBehavior>
+                                <button className={styles.buttonHome}>
+                                    <AiFillHome size={33} color="#1D1D2E"></AiFillHome>
+                                </button>
+                            </Link>
+                        </div>
 
-                      
-                         
                     </form>
                 </main>
             </div>
@@ -151,18 +136,18 @@ export default function Tasks({ /*categoryList*/ projectsList, tasksList }: List
     )
 }
 
-export const getServerSideProps = canSSRAuth(async(context) => {
-   const apiClient = setupAPIClient(context);
+export const getServerSideProps = canSSRAuth(async (context) => {
+    const apiClient = setupAPIClient(context);
 
-   
+
     // const response = await apiClient.get('/category');
     const responseProject = await apiClient.get('/orders');
     const responseTasks = await apiClient.get('/all/tasks');
     // console.log(response.data);
 
 
-    return{
-        props:{
+    return {
+        props: {
             // categoryList: response.data
             projectsList: responseProject.data,
             tasksList: responseTasks.data

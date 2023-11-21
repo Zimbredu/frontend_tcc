@@ -2,6 +2,8 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import Head from "next/head";
 import styles from './styles.module.scss';
 import stylesHeader from '../../components/Header/styles.module.scss'
+import { Header } from "../../components/HeaderProject";
+import { GrFormNext } from 'react-icons/gr'
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
@@ -61,27 +63,13 @@ export default function OpenProject() {
                 <title>Novo projeto - Taskify</title>
             </Head>
             <div>
-
-                {/* Header */}
-                <header className={stylesHeader.headerContainer}>
-                    <div className={stylesHeader.headerContent}>
-                        <Link href='/dashboard'>
-                            <img src="/logoTaskify.png" width={180} height={35} alt="Taskify" />
-                        </Link>
-
-                        <nav className={stylesHeader.menuNav}>
-                            <Link href='/' legacyBehavior>
-                                <a className={styles.text}>Voltar</a>
-                            </Link>
-                        </nav>
-                    </div>
-                </header>
-                {/* Fim Header */}
+                <Header />
 
                 <main className={styles.container}>
                     <h1>Novo projeto</h1>
 
                     <form className={styles.form} onSubmit={handleRegister}>
+                        <h3>Insira o número do projeto:</h3>
                         <input
                             type="number"
                             placeholder="Digite o numero do projeto"
@@ -90,6 +78,7 @@ export default function OpenProject() {
                             onChange={handleInputChangeToNumber}
                         />
 
+                        <h3>Insira o nome do projeto:</h3>
                         <input
                             type="text"
                             placeholder="Digite o nome do projeto"
@@ -103,7 +92,10 @@ export default function OpenProject() {
                             </button>
 
                             <Link href='../tasks' legacyBehavior>
-                                <a className={styles.buttonNext}>Adicionar tarefas</a>
+                                <button className={styles.buttonNext}>
+                                    <span>Cadastrar tarefas</span>
+                                    <GrFormNext size={40} className={styles.iconNext} />
+                                </button>
                             </Link>
                         </div>
                     </form>

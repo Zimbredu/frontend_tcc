@@ -22,20 +22,12 @@ export function Header(){
                        <a>Rota categoria</a>                   
                     </Link> */}
 
-                    <Link href='/project' legacyBehavior>
-                       <a className={styles.linkCadProj}>Abrir projeto</a>                    
-                    </Link>
-
                     <Link href='/tasks' legacyBehavior>
                        <a className={styles.linkCadTarefa}>Cadastrar Tarefa</a>                    
                     </Link>
 
                     <Link href='/addtaskproject' legacyBehavior>
                        <a className={styles.linkTaskProject}>Adicionar Tarefa ao Projeto</a>                    
-                    </Link>
-
-                    <Link href='/checklist' legacyBehavior>
-                       <a className={styles.linkCadTarefa}>checklist</a>                    
                     </Link>
                     
                     <button onClick={signOut}>

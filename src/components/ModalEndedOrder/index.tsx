@@ -13,10 +13,10 @@ interface ModalOrderProps {
     onRequestClose: () => void;
     /* requisicaoservico: OrderItemProps[]; */
     requisicaotarefas: OrderItemProps[];
-    handleFinishOrder: (id: string) => void;
+    handleRevertOrder: (id: string) => void;
 }
 
-export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFinishOrder }: ModalOrderProps) {
+export function ModalEndedOrder({ isOpen, onRequestClose, requisicaotarefas, handleRevertOrder }: ModalOrderProps) {
     //A seguir a configuração do Modal.
     const customStyles = {
         content: {
@@ -77,17 +77,9 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
                 ))}
 
                 <div className={styles.containerButtons}>
-                    {/* <button className={styles.buttonOrder} onClick={() =>
-                        handleFinishOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
-<<<<<<< HEAD
-                        Concluir tarefa
-                    </button> */}
                     <button className={styles.buttonOrder} onClick={() =>
-                        handleFinishOrder(requisicaotarefas[0].requisicaotarefas.id)}>
-                        Concluir tarefa
-=======
-                        Concluir projeto
->>>>>>> a6793ee093d2468a46c46463ded07b6363f106eb
+                        handleRevertOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
+                        Continuar projeto
                     </button>
 
                     <button className={styles.buttonLink}>

@@ -1,7 +1,8 @@
 import { useState, FormEvent } from "react";
 import Head from "next/head";
 import styles from './styles.module.scss';
-import { Header } from "../../components/Header";
+import { Header } from "../../components/HeaderTask";
+import { GrFormNext } from 'react-icons/gr'
 
 import { setupAPIClient } from "../../services/api";
 
@@ -17,6 +18,7 @@ type ItemProps = {
     name: string;
 }
 
+<<<<<<< HEAD
 interface CategoryProps{
     //categoryList: ItemProps[];
     orderList: ItemProps[];
@@ -24,6 +26,14 @@ interface CategoryProps{
 
 //export default function Tasks({ categoryList }: CategoryProps){
 export default function Tasks({orderList}:CategoryProps){
+=======
+interface CategoryProps {
+    categoryList: ItemProps[];
+}
+
+export default function Tasks({ categoryList }: CategoryProps) {
+
+>>>>>>> a6793ee093d2468a46c46463ded07b6363f106eb
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -31,10 +41,10 @@ export default function Tasks({orderList}:CategoryProps){
     const [categories, setCategories] = useState(orderList || []);
     const [categorySelected, setCategorySelected] = useState(0);
 
-   
+
     //Função p/ selecionar um categoria/prioridade na lista (select).
-    function handleChangeCategory(event){
-       setCategorySelected(event.target.value);
+    function handleChangeCategory(event) {
+        setCategorySelected(event.target.value);
     }
 
     async function handleRegister(event: FormEvent) {
@@ -42,17 +52,17 @@ export default function Tasks({orderList}:CategoryProps){
 
         try {
 
-            if(name === '' || description === ''){
+            if (name === '' || description === '') {
                 toast.error('Preencha todos os campos!');
                 return;
             }
-            
+
             const apiClient = setupAPIClient();
 
             await apiClient.post('/tasks', {
                 name: name,
                 description: description,
-                categoria_tarefa_id:categories[categorySelected].id
+                categoria_tarefa_id: categories[categorySelected].id
             });
 
             toast.success('Tarefa cadastrada com sucesso!');
@@ -65,51 +75,65 @@ export default function Tasks({orderList}:CategoryProps){
         setDescription('');
     }
 
-    return(
+    return (
         <>
             <Head>
                 <title>Nova tarefa - Taskify</title>
             </Head>
             <div>
-                <Header/>
+                <Header />
                 <main className={styles.container}>
                     <h1>Nova tarefa</h1>
 
                     <form className={styles.form} onSubmit={handleRegister}>
-                       
+
+                        <h3>Defina a prioridade:</h3>
                         <select value={categorySelected} onChange={handleChangeCategory}>
-                           {categories.map( (item, index) => {
-                                return(
+                            {categories.map((item, index) => {
+                                return (
                                     <option key={item.id} value={index}>
-                                      {item.name}                                        
+                                        {item.name}
                                     </option>
                                 )
-                           })}
+                            })}
                         </select>
-                        
-                       <input
-                         type="text"
-                         placeholder="Digite o nome da tarefa."
-                         className={styles.input}
-                         value={name} 
-                         onChange={ (e) => setName(e.target.value)} 
-                         />
 
-                       <textarea
-                         placeholder="Descreva sua tarefa"
-                         className={styles.input}
-                         value={description}
-                         onChange={ (e) => setDescription(e.target.value)}
-                       />
+                        <h3>Digite o nome da tarefa:</h3>
+                        <input
+                            type="text"
+                            placeholder="Nome da tarefa..."
+                            className={styles.input}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
 
-                        <div className={styles.buttons}>
-                       <button className={styles.buttonAdd} type="submit">
-                         Cadastrar
-                       </button>
+                        <h3>Descreva sua tarefa:</h3>
+                        <textarea
+                            placeholder="Descrição..."
+                            className={styles.input}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
 
+<<<<<<< HEAD
                       {/*  <Link href='../addtaskproject' legacyBehavior>
                             <a className={styles.buttonNext}>Adicionar tarefas em um projeto</a>
                         </Link> */}
+=======
+                        <div className={styles.buttons}>
+                            <button className={styles.buttonAdd} type="submit">
+                                Cadastrar
+                            </button>
+
+                            <Link href='../addtaskproject' legacyBehavior>
+                                <button className={styles.buttonNext}>
+                                    <span>
+                                        Adicionar tarefas em um projeto
+                                        <GrFormNext size={40} className={styles.iconNext} />
+                                    </span>
+                                </button>
+                            </Link>
+>>>>>>> a6793ee093d2468a46c46463ded07b6363f106eb
                         </div>
 
                     </form>
@@ -119,9 +143,11 @@ export default function Tasks({orderList}:CategoryProps){
     )
 }
 
-export const getServerSideProps = canSSRAuth(async(context) => {
-   const apiClient = setupAPIClient(context);
+export const getServerSideProps = canSSRAuth(async (context) => {
+    const apiClient = setupAPIClient(context);
 
+
+<<<<<<< HEAD
    
    /*  const response = await apiClient.get('/category');   */
    const response = await apiClient.get('/orders');  
@@ -132,6 +158,15 @@ export const getServerSideProps = canSSRAuth(async(context) => {
         props:{
             /* categoryList: response.data */
             orderList: response.data,
+=======
+    const response = await apiClient.get('/category');
+    // console.log(response.data);
+
+
+    return {
+        props: {
+            categoryList: response.data
+>>>>>>> a6793ee093d2468a46c46463ded07b6363f106eb
         }
     }
 })
