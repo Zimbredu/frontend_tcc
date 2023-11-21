@@ -9,6 +9,7 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { setupAPIClient } from '../../services/api';
 
 import { ModalOrder } from '../../components/ModalOrder';
+import { toast } from "react-toastify";
 
 import Link from "next/link";
 import Modal from 'react-modal';
@@ -69,16 +70,31 @@ export default function Dashboard({ orders }: HomeProps) {
 
     async function handleFinishItem(id: string) {
         const apiClient = setupAPIClient();
-        await apiClient.put('/order/finish', {
-            requisicao_tarefa_id: id,
-        })
 
-        //Buscar todas as tarefas.
-        const response = await apiClient.get('/orders');
-        //Listar os últimos pedidos atualizados.
-        setOrderList(response.data);
-        //Fechar o modal.
-        setModalVisible(false);
+        try {
+
+            if (id === null) {
+                toast.error('Preencha todos os campos!');
+                return;
+            }
+            
+            await apiClient.put('/order/finish', {
+                requisicao_tarefa_id: id,
+            })
+
+            //Buscar todas as tarefas.
+            const response = await apiClient.get('/orders');
+            //Listar os últimos pedidos atualizados.
+            setOrderList(response.data);
+            //Fechar o modal.
+            setModalVisible(false);
+            toast.success('Projeto concluído com sucesso!');
+
+        } catch (err) {
+            console.log(err);
+            toast.error('Erro ao concluir o projeto!')
+        }
+
     }
     //Atualizar lista com botão (FiRefreshCcw buscar os últimos pedidos). 
     async function handleRefreshOrders() {
