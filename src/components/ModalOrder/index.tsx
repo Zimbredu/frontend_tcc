@@ -74,8 +74,12 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
                 ))}
 
                 <div className={styles.containerButtons}>
-                    <button className={styles.buttonOrder} onClick={() =>
+                    {/* <button className={styles.buttonOrder} onClick={() =>
                         handleFinishOrder(requisicaotarefas[0].requisicao_tarefa_id)}>
+                        Concluir tarefa
+                    </button> */}
+                    <button className={styles.buttonOrder} onClick={() =>
+                        handleFinishOrder(requisicaotarefas[0].requisicaotarefas.id)}>
                         Concluir tarefa
                     </button>
 

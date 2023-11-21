@@ -18,12 +18,12 @@ export default function OpenProject() {
     const [pTask, setTask] = useState(0);
     const [pName, setName] = useState('');
 
-    const handleInputChangeToNumber = (e) => {
+     const handleInputChangeToNumber = (e) => {
         const input = e.target.value;
         if (!isNaN(input)) {
             setTask(parseInt(input));
         }
-    };
+    }; 
 
     async function handleRegister(event: FormEvent) {
         event.preventDefault();
@@ -32,7 +32,7 @@ export default function OpenProject() {
         // console.log(typeof(pTask));
 
         try {
-            if (pTask === 0 || pName === '') {
+            if ( pTask === 0 ||  pName === '') {
                 toast.error('Preencha todos os campos!');
                 return;
             } else {
