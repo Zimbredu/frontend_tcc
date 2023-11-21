@@ -25,6 +25,10 @@ export function Header(){
                     <Link href='/project' legacyBehavior>
                        <a className={styles.linkCadTarefa}>Abrir projeto</a>                    
                     </Link>
+
+                    <Link href='/checklist' legacyBehavior>
+                       <a className={styles.linkCadTarefa}>checklist</a>                    
+                    </Link>
                     
                     <button onClick={signOut}>
                         <FiLogOut color='#FFF' size={24}/>
