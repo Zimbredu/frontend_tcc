@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-import Link from "next/link";
+//import Link from "next/link";
 
 //criando uma tipagem categoryList.
 type ItemProps = {
@@ -18,15 +18,17 @@ type ItemProps = {
 }
 
 interface CategoryProps{
-    categoryList: ItemProps[];
+    //categoryList: ItemProps[];
+    orderList: ItemProps[];
 }
 
-export default function Tasks({ categoryList }: CategoryProps){
-
+//export default function Tasks({ categoryList }: CategoryProps){
+export default function Tasks({orderList}:CategoryProps){
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
-    const [categories, setCategories] = useState(categoryList || []);
+    //const [categories, setCategories] = useState(categoryList || []);
+    const [categories, setCategories] = useState(orderList || []);
     const [categorySelected, setCategorySelected] = useState(0);
 
    
@@ -105,9 +107,9 @@ export default function Tasks({ categoryList }: CategoryProps){
                          Cadastrar
                        </button>
 
-                       <Link href='../addtaskproject' legacyBehavior>
+                      {/*  <Link href='../addtaskproject' legacyBehavior>
                             <a className={styles.buttonNext}>Adicionar tarefas em um projeto</a>
-                        </Link>
+                        </Link> */}
                         </div>
 
                     </form>
@@ -121,13 +123,15 @@ export const getServerSideProps = canSSRAuth(async(context) => {
    const apiClient = setupAPIClient(context);
 
    
-    const response = await apiClient.get('/category');  
+   /*  const response = await apiClient.get('/category');   */
+   const response = await apiClient.get('/orders');  
     // console.log(response.data);
 
 
     return{
         props:{
-            categoryList: response.data
+            /* categoryList: response.data */
+            orderList: response.data,
         }
     }
 })
