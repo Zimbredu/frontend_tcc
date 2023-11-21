@@ -43,7 +43,7 @@
     /* .orderItem */
     display: flex;
     flex-direction: row;
-    background-color: var(--dark-900);
+    background-color: #15122356;
     width: 10rem;
     height: 10rem;
     margin-bottom: 3rem;
@@ -86,7 +86,7 @@
 .tag {
     /* .tag */
     width: 9px;
-    background-color: var(--blue);
+    background-color: rgba(177, 177, 177, 0.432);
     height: 100%;
     border-radius: 0.3rem 0 0 0.3rem;
     margin-right: 14%;
@@ -95,24 +95,4 @@
 .emptyList {
     font-size: 1.2rem;
     color: var(--gray-100);
-}
-
-.buttonConcludeOrders{
-    border: 0.4rem solid transparent;
-    background-color: var(--green);
-    border-radius: 0.5rem;
-    font-weight: bold;
-    margin-top: 1rem;
-
-    span{
-        color: var(--dark-700);
-        padding: 0 0.5rem;
-        display: inline-block;
-        position: relative;
-        transition: color 0.7s;
-    
-        &:hover{
-            color: var(--blue);
-        }
-    }
 }

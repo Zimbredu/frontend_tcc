@@ -29,10 +29,6 @@ export function Header(){
                     <Link href='/tasks' legacyBehavior>
                        <a className={styles.linkCadTarefa}>Cadastrar Tarefa</a>                    
                     </Link>
-
-                    <Link href='/addtaskproject' legacyBehavior>
-                       <a className={styles.linkTaskProject}>Adicionar Tarefa ao Projeto</a>                    
-                    </Link>
                     
                     <button onClick={signOut}>
                         <FiLogOut color='#FFF' size={24}/>
