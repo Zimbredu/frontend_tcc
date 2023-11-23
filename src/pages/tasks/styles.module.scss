@@ -57,41 +57,59 @@
 
 .buttons{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.buttonAdd{
-    border-radius: 0.3rem;
-    height: 40px;
-    border: 0;
-    background-color: var(--green);
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--dark-700);
-    padding: 0 1rem;
-}
-
-.buttonNext{
+.buttonAdd {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 0.3rem;
     height: 40px;
-    width: 24rem;
-    // border: 0;
+    width: 30%;
+    border-radius: 0.3rem;
+    border: 0;
+    padding: 0 1rem;
     background-color: var(--green);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: var(--dark-700);
 
-    padding: 0 1rem;
-
-    span{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    .addIcon {
+        margin-right: 1rem;
     }
 }
+
+.buttonHome {
+    height: 40px;
+    background: transparent;
+    background-color: var(--green);
+    border-radius: 0.3rem;
+    padding: 0 1rem;
+    margin-top: 0.5rem;
+}
+
+// .buttonNext{
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+
+//     border-radius: 0.3rem;
+//     height: 40px;
+//     width: 24rem;
+//     // border: 0;
+//     background-color: var(--green);
+//     font-size: 1.2rem;
+//     font-weight: bold;
+//     color: var(--dark-700);
+
+//     padding: 0 1rem;
+
+//     span{
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+//     }
+// }
