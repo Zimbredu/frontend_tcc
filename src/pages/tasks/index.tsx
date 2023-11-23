@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-//import Link from "next/link";
+    import Link from "next/link";
 
 //criando uma tipagem categoryList.
 type ItemProps = {
@@ -18,27 +18,17 @@ type ItemProps = {
     name: string;
 }
 
-<<<<<<< HEAD
-interface CategoryProps{
-    //categoryList: ItemProps[];
-    orderList: ItemProps[];
-}
-
-//export default function Tasks({ categoryList }: CategoryProps){
-export default function Tasks({orderList}:CategoryProps){
-=======
 interface CategoryProps {
     categoryList: ItemProps[];
 }
 
 export default function Tasks({ categoryList }: CategoryProps) {
 
->>>>>>> a6793ee093d2468a46c46463ded07b6363f106eb
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
     //const [categories, setCategories] = useState(categoryList || []);
-    const [categories, setCategories] = useState(orderList || []);
+    const [categories, setCategories] = useState(categoryList || []);
     const [categorySelected, setCategorySelected] = useState(0);
 
 
@@ -115,11 +105,6 @@ export default function Tasks({ categoryList }: CategoryProps) {
                             onChange={(e) => setDescription(e.target.value)}
                         />
 
-<<<<<<< HEAD
-                      {/*  <Link href='../addtaskproject' legacyBehavior>
-                            <a className={styles.buttonNext}>Adicionar tarefas em um projeto</a>
-                        </Link> */}
-=======
                         <div className={styles.buttons}>
                             <button className={styles.buttonAdd} type="submit">
                                 Cadastrar
@@ -133,7 +118,6 @@ export default function Tasks({ categoryList }: CategoryProps) {
                                     </span>
                                 </button>
                             </Link>
->>>>>>> a6793ee093d2468a46c46463ded07b6363f106eb
                         </div>
 
                     </form>
@@ -147,18 +131,6 @@ export const getServerSideProps = canSSRAuth(async (context) => {
     const apiClient = setupAPIClient(context);
 
 
-<<<<<<< HEAD
-   
-   /*  const response = await apiClient.get('/category');   */
-   const response = await apiClient.get('/orders');  
-    // console.log(response.data);
-
-
-    return{
-        props:{
-            /* categoryList: response.data */
-            orderList: response.data,
-=======
     const response = await apiClient.get('/category');
     // console.log(response.data);
 
@@ -166,7 +138,6 @@ export const getServerSideProps = canSSRAuth(async (context) => {
     return {
         props: {
             categoryList: response.data
->>>>>>> a6793ee093d2468a46c46463ded07b6363f106eb
         }
     }
 })

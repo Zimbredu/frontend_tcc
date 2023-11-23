@@ -34,9 +34,7 @@ export function Header(){
                        <a className={styles.linkTaskProject}>Adicionar Tarefa ao Projeto</a>                    
                     </Link>
 
-                    <Link href='/checklist' legacyBehavior>
-                       <a className={styles.linkCadTarefa}>checklist</a>                    
-                    </Link>
+                    
                     
                     <button onClick={signOut}>
                         <FiLogOut color='#FFF' size={24}/>
