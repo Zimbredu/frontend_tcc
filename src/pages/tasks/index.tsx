@@ -70,7 +70,8 @@ export default function Tasks({ categoryList, projectsList }: ListProps) {
             const responseCadastroTarefa = await apiClient.post('/tasks', {
                 name: name,
                 description: description,
-                categoria_tarefa_id: categories[categorySelected].id
+                categoria_tarefa_id: categories[categorySelected].id,
+                requisicao_tarefa_id: projects[projectSelected].id
             });
 
             await apiClient.post('/order/add', {

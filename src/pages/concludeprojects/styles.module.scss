@@ -96,3 +96,41 @@
     font-size: 1.2rem;
     color: var(--gray-100);
 }
+
+.buttonReturn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 1.9rem;
+    border: 0.4rem solid transparent;
+    background-color: var(--green);
+    border-radius: 0.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    
+    .returnIcon{
+        color: var(--dark-700);
+        display: inline-block;
+        position: relative;
+        margin-left: 0.2rem;
+        transition: color 0.7s;
+
+        &:hover {
+            color: var(--blue);
+        }
+    }
+    
+    span {
+        color: var(--dark-700);
+        margin: 0 0.7rem;
+        display: inline-block;
+        position: relative;
+        transition: color 0.7s;
+        
+        &:hover {
+            color: var(--blue);
+        }
+    }
+}
