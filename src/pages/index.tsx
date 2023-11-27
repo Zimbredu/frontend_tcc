@@ -34,7 +34,7 @@ export default function Home() {
 
     if(email === '' || password === '') {
        //Alert personalizado.
-       toast.error('Preencha todo os campos!');
+       toast.error('Preencha todos os campos!');
 
       return;
     }
