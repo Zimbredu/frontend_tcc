@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-import Link from "next/link";
+    import Link from "next/link";
 
 
 
