@@ -1,22 +1,48 @@
-
+import { useState, FormEvent } from "react";
 import Modal from "react-modal";
 import styles from './styles.module.scss';
 
 import { FiX } from 'react-icons/fi';
+import { FaCheck } from "react-icons/fa";
 
 import { OrderItemProps } from '../../pages/dashboard';
+import { setupAPIClient } from '../../services/api';
 
-import Link from "next/link";
+import { toast } from "react-toastify";
 
 interface ModalOrderProps {
     isOpen: boolean;
     onRequestClose: () => void;
-    /* requisicaoservico: OrderItemProps[]; */
     requisicaotarefas: OrderItemProps[];
     handleFinishOrder: (id: string) => void;
 }
 
 export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFinishOrder }: ModalOrderProps) {
+
+    const [style, setStyle] = useState(styles.taskDone1);
+
+    async function handleFinishItemTask(id: string) {
+        const apiClient = setupAPIClient();
+
+        try {
+            if (id === null) {
+                toast.error('Error!');
+                return;
+            }
+
+            await apiClient.put('/task', {
+                tarefa_id: id,
+            })
+            toast.success('Tarefa concluída com sucesso!');
+
+        } catch (err) {
+            console.log(err);
+            toast.error('Erro ao concluir a tarefa!')
+        }
+    }
+
+
+
     //A seguir a configuração do Modal.
     const customStyles = {
         content: {
@@ -46,7 +72,6 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
             </button>
 
             <div className={styles.container}>
-
                 <div className={styles.containerHeader}>
                     <h2>Detalhes do projeto</h2>
 
@@ -66,12 +91,23 @@ export function ModalOrder({ isOpen, onRequestClose, requisicaotarefas, handleFi
                             </span>
                         </>
                     )}
-
                 </div>
 
                 {requisicaotarefas.map(item => (
                     <section key={item.id} className={styles.containerItem}>
-                        <span>{item.amount} - <strong>{item.tarefa.name}</strong></span>
+                        <span className={style}>
+                            <button
+                                type="submit"
+                                className={styles.checkbox}
+                                onClick={() => handleFinishItemTask(item.tarefa_id)}
+                            >
+                                <FaCheck className={styles.checkIcon} />
+                            </button>
+                            -
+                            <strong>
+                                {item.tarefa.name}
+                            </strong>
+                        </span>
                         <span className={styles.description}>{item.tarefa.description}</span>
                     </section>
                 ))}
