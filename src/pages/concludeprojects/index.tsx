@@ -5,11 +5,14 @@ import styles from './styles.module.scss';
 
 import { Header } from "../../components/Header";
 import { FiRefreshCcw } from "react-icons/fi";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 import { setupAPIClient } from '../../services/api';
 
 import { ModalEndedOrder } from '../../components/ModalEndedOrder';
+import { toast } from "react-toastify";
 
+import Link from "next/link";
 import Modal from 'react-modal';
 
 type OrderProps = {
@@ -32,7 +35,8 @@ export type OrderItemProps = {
     tarefa: {//product
         id: string;
         name: string;
-        description: string
+        description: string;
+        status: boolean;
     }
     requisicaotarefas: {//order
         id: string;
@@ -78,7 +82,9 @@ export default function ConcludeProjects({ orders }: HomeProps) {
         setOrderList(response.data);
         //Fechar o modal.
         setModalVisible(false);
+        toast.success('Projeto em andamento!');
     }
+
     //Atualizar lista com botão (FiRefreshCcw buscar os últimos pedidos). 
     async function handleRefreshOrders() {
         const apiClient = setupAPIClient();
@@ -135,6 +141,13 @@ export default function ConcludeProjects({ orders }: HomeProps) {
                         ))}
 
                     </article>
+
+                    <Link href='/' legacyBehavior>
+                        <button className={styles.buttonReturn}>
+                            <IoMdArrowRoundBack size={22} className={styles.returnIcon} />
+                            <span>Voltar</span>
+                        </button>
+                    </Link>
 
                 </main>
 
